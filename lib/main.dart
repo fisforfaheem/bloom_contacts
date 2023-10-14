@@ -1,6 +1,13 @@
+import 'package:bloom_contacts/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  //!initilize hive
+  await Hive.initFlutter();
+
+  //!open box
+  Box box = await Hive.openBox('myBox');
   runApp(const MainApp());
 }
 
@@ -9,12 +16,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      home: HomePage(),
     );
   }
 }
