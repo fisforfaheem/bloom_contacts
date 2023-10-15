@@ -7,17 +7,22 @@ class HomePage extends StatelessWidget {
   //!reference the box
   final Box _myBox = Hive.box('myBox');
 
-  //read data
-  void readData() {}
-
-  //write data
+  //!write data
   void writeData() {
-    _myBox.put(1, 'Faheem Ahmad');
+    _myBox.put(2, 'Faheem Ahmad');
     print(_myBox.get(1));
   }
 
-  //delete data
-  void deleteData() {}
+  //!read data
+  void readData() {
+    print(_myBox.get(2));
+    print(_myBox.get(1));
+  }
+
+  //!delete data
+  void deleteData() {
+    _myBox.delete(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +37,12 @@ class HomePage extends StatelessWidget {
               child: const Text('Write'),
             ),
             MaterialButton(
-              onPressed: () {},
+              onPressed: readData,
               color: Colors.amberAccent,
               child: const Text('Read'),
             ),
             MaterialButton(
-              onPressed: () {},
+              onPressed: deleteData,
               color: Colors.amberAccent,
               child: const Text('Delete'),
             ),
