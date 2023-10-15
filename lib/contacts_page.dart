@@ -1,38 +1,11 @@
 import 'package:bloom_contacts/add_contacts_page.dart';
+import 'package:bloom_contacts/contacts_list.dart';
 import 'package:bloom_contacts/edit_contact_page.dart';
 import 'package:flutter/material.dart';
 
 class ContactsPage extends StatelessWidget {
-  ContactsPage({super.key});
-  final List contacts = [
-    {'name': 'Faheem'},
-    {'name': 'Ali'},
-    {'name': 'Bob'},
-    {'name': 'Charlie'},
-    {'name': 'David'},
-    {'name': 'Eva'},
-    {'name': 'Frank'},
-    {'name': 'Gina'},
-    {'name': 'Hannah'},
-    {'name': 'Ivan'},
-    {'name': 'Jack'},
-    {'name': 'Katie'},
-    {'name': 'Liam'},
-    {'name': 'Mia'},
-    {'name': 'Nate'},
-    {'name': 'Olivia'},
-    {'name': 'Pete'},
-    {'name': 'Quinn'},
-    {'name': 'Rachel'},
-    {'name': 'Steve'},
-    {'name': 'Tina'},
-    {'name': 'Uma'},
-    {'name': 'Vince'},
-    {'name': 'Wendy'},
-    {'name': 'Xander'},
-    {'name': 'Yara'},
-    {'name': 'Zoe'},
-  ];
+  const ContactsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,22 +13,27 @@ class ContactsPage extends StatelessWidget {
         title: const Text('Bloom Contacts'),
       ),
       body: ListView.builder(
-        itemCount: contacts.length,
+        itemCount: ContactList.contact.length,
         itemBuilder: (context, index) {
+          final contactList = ContactList.contact[index];
           return ListTile(
+            dense: false,
             leading: const Icon(Icons.person),
-            title: Text(contacts[index]['name']),
+            title: Text(contactList['name']),
+            subtitle: Text(contactList['phone']!),
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          EditContactPage(contacts[index]['name'])));
+                      builder: (context) => EditContactPage(
+                            contact: ContactList.contact[index],
+                          )));
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
         enableFeedback: true,
         onPressed: () {
           Navigator.push(context,

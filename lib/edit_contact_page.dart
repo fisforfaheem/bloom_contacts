@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 
-class EditContactPage extends StatelessWidget {
-  EditContactPage(contact, {super.key});
+class EditContactPage extends StatefulWidget {
+  final Map contact;
 
-  TextEditingController userNameController = TextEditingController();
+//constructor
+  const EditContactPage({
+    super.key,
+    required this.contact,
+  });
+
+  @override
+  State<EditContactPage> createState() => _EditContactPageState();
+}
+
+class _EditContactPageState extends State<EditContactPage> {
+  late TextEditingController userNameController;
+  late TextEditingController userPhoneController;
+
+  @override
+  void initState() {
+    super.initState();
+    userNameController = TextEditingController(text: widget.contact['name']);
+    userPhoneController = TextEditingController(text: widget.contact['phone']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +47,7 @@ class EditContactPage extends StatelessWidget {
                 height: 26,
               ),
               TextFormField(
-                controller: userNameController,
+                controller: userPhoneController,
                 decoration: const InputDecoration(
                   hintText: 'Phone Number',
                   icon: Icon(Icons.phone),
@@ -40,7 +59,13 @@ class EditContactPage extends StatelessWidget {
               MaterialButton(
                 textColor: Colors.black,
                 color: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    widget.contact['name'] = userNameController.text;
+                    widget.contact['phone'] = userPhoneController.text;
+                    // widget.onSave(widget.contact);
+                  });
+                },
                 child: const Text('SAVE'),
               )
             ],
