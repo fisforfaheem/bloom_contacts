@@ -18,8 +18,32 @@ class ContactsPage extends StatelessWidget {
           final contactList = ContactList.contact[index];
           return ListTile(
             dense: false,
-            leading: const Icon(Icons.person),
-            title: Text(contactList['name']),
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(contactList['image']!),
+            ),
+            title: Text(
+              contactList['name']!,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.email_rounded,
+                    size: 30,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.phone_rounded,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
             subtitle: Text(contactList['phone']!),
             onTap: () {
               Navigator.push(
