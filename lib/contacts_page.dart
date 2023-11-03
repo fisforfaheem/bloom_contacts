@@ -2,10 +2,22 @@ import 'package:bloom_contacts/add_contacts_page.dart';
 import 'package:bloom_contacts/contacts_list.dart';
 import 'package:bloom_contacts/edit_contact_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactsPage extends StatelessWidget {
+class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
+
+  @override
+  State<ContactsPage> createState() => _ContactsPageState();
+}
+
+class _ContactsPageState extends State<ContactsPage> {
+  @override
+  void dispose() {
+    Hive.box('contacts').close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
