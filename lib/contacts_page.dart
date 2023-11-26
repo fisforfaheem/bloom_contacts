@@ -58,12 +58,29 @@ class ContactsPage extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () async {
-                      final url = 'https://wa.me/${contactList['phone']}';
-                      if (await canLaunchUrl(Uri.parse(url))) {
-                        await launchUrl(Uri.parse(url));
+                      var whatsapp = '${contactList['phone']}';
+                      var whatsappAndroid = Uri.parse(
+                          "whatsapp://send?phone=$whatsapp&text=hello");
+                      if (await canLaunchUrl(whatsappAndroid)) {
+                        await launchUrl(whatsappAndroid);
                       } else {
-                        throw 'Could not launch $url';
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text("WhatsApp is not installed on the device"),
+                          ),
+                        );
                       }
+
+                      // final url =
+                      //     "whatsapp://send?phone=${contactList['phone']}&text=Hi, I need some help";
+                      // try {
+                      //   if (Platform.isIOS) {
+                      //     await launchUrl(Uri.parse(url));
+                      //   } else {
+                      //     await launchUrl(Uri.parse(url));
+                      //   }
+                      // } on Exception {}
                     },
                     icon: const Icon(
                       Icons.phone_rounded,
